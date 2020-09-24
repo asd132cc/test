@@ -6,7 +6,13 @@ spring:
     username: root
     password: Abc1234!
     driver-class-name: com.mysql.jdbc.Driver
+    mvc:
+    view:
+    prefix: /static/jsp/
+    suffix: .jsp
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.test.bean
+
+
