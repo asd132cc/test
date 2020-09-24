@@ -1,14 +1,15 @@
 package com.example.test.controller;
 
+
+import com.example.test.bean.PermissionTable;
+import com.example.test.service.PermissionTableService;
 import com.ssm.controller.vo.LayuiReturn;
-import com.ssm.entity.PermissionTable;
-import com.ssm.service.PermissionTableService;
-import com.ssm.service.SubjectShaftTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -25,7 +26,7 @@ PermissionTableService permissionTableService;
     public String insert_permission(HttpSession session, PermissionTable permissionTable){
        String userName = (String) session.getAttribute("userName");
        String flag;
-          PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+          PermissionTable permissionTable1=permissionTableService.selectPermissionByUserName(userName);
           if(permissionTable1.getY().equals("0")){
               flag="0";
               return flag;
@@ -38,6 +39,7 @@ PermissionTableService permissionTableService;
 
     //查询权限
     @RequestMapping(value="/select_permissions",method= RequestMethod.GET)
+    @ResponseBody
     public LayuiReturn<PermissionTable> select_permissions(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
                                                            @RequestParam(value = "limit", required = false) Integer pageSize){
         String userName = (String) session.getAttribute("userName");

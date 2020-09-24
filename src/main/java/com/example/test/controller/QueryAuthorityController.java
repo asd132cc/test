@@ -1,18 +1,18 @@
 package com.example.test.controller;
 
+import com.example.test.bean.PermissionTable;
+import com.example.test.bean.ProductManages;
+import com.example.test.service.PermissionTableService;
+import com.example.test.service.ProductManagesService;
 import com.ssm.controller.vo.LayuiReturn;
-import com.ssm.entity.PermissionTable;
-import com.ssm.entity.ProductManages;
-import com.ssm.service.PermissionTableService;
-import com.ssm.service.ProductManagesService;
-import com.ssm.service.SubjectProductTableService;
-import com.ssm.service.SubjectShaftTableService;
+
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,10 +31,11 @@ public class QueryAuthorityController {
 
 //登入后
     @RequestMapping("/select_AllFrom_permission")
+    @ResponseBody
     public LayuiReturn<ProductManages> select_AllFrom_permission(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
                                                                  @RequestParam(value = "limit", required = false) Integer pageSize){
         String userName= (String) session.getAttribute("userName");
-        PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+        PermissionTable permissionTable1=permissionTableService.selectPermissionByUserName(userName);
         List<ProductManages> productManagesList=productManagesService.selectpermissionByLimit(permissionTable1,
                 pageSize*(currPage-1)+"",pageSize+"");
         int count=productManagesService.selectpermissionCount();
@@ -43,6 +44,7 @@ public class QueryAuthorityController {
     }
 //登入前
 @RequestMapping("/select_AllFirst")
+@ResponseBody
 public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
                                                              @RequestParam(value = "limit", required = false) Integer pageSize){
     List<ProductManages> productManagesList=productManagesService.selectpermissionByLimitFirst(
@@ -130,6 +132,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
   }
  //通过品类，型号，主题，国家语言查询(模糊查询，分页)
  @RequestMapping("/select_AllByCategoryModelTypeNationLanguage")
+ @ResponseBody
  public LayuiReturn<ProductManages> select_AllByCategoryModelTypeNationLanguage(HttpSession session,
                                                                                 @RequestParam("category") String category,
                                                                                 @RequestParam("model") String model,
