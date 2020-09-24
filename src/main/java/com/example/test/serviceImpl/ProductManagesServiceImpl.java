@@ -10,7 +10,8 @@ import com.example.test.bean.ProductManages;
 import com.example.test.mapper.ProductManagesDao;
 
 
-import com.example.test.service.ProductManagesService;
+import com.example.test.service.
+        ProductManagesService;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
