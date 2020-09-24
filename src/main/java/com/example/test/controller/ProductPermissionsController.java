@@ -1,0 +1,96 @@
+package com.example.test.controller;
+
+import com.ssm.controller.vo.LayuiReturn;
+import com.ssm.entity.PermissionTable;
+import com.ssm.service.PermissionTableService;
+import com.ssm.service.SubjectShaftTableService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+@Controller
+public class ProductPermissionsController {
+@Autowired
+PermissionTableService permissionTableService;
+
+
+
+    //添加权限
+    @RequestMapping(value="/insert_permission",method= RequestMethod.POST)
+    public String insert_permission(HttpSession session, PermissionTable permissionTable){
+       String userName = (String) session.getAttribute("userName");
+       String flag;
+          PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+          if(permissionTable1.getY().equals("0")){
+              flag="0";
+              return flag;
+          }
+           permissionTable.setUpdatePerson(userName);
+           flag=permissionTableService.insertPermissionTable(permissionTable);
+
+        return flag;
+    }
+
+    //查询权限
+    @RequestMapping(value="/select_permissions",method= RequestMethod.GET)
+    public LayuiReturn<PermissionTable> select_permissions(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
+                                                           @RequestParam(value = "limit", required = false) Integer pageSize){
+        String userName = (String) session.getAttribute("userName");
+        PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+        if(permissionTable1.getY().equals("0")){
+            return  LayuiReturn.convert(0,null);
+        }
+        //查询分页
+       List<PermissionTable> permissionTableList=
+               permissionTableService.selectPermissionByLimit(pageSize*(currPage-1)+"",pageSize+"");
+        //查询所有个数
+        List<PermissionTable> permissionTableList2= permissionTableService.selectPermission();
+        int count=permissionTableList2.size();
+        return LayuiReturn.convert(count,permissionTableList);
+    }
+
+
+    //修改权限
+    @RequestMapping(value="/update_permission",method=RequestMethod.POST)
+    public String update_permission(HttpSession session,PermissionTable permissionTable){
+        String userName = (String) session.getAttribute("userName");
+        String flag;
+        PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+        if(permissionTable1.getY().equals("0")){
+            flag="0";
+            return flag;
+        }
+        permissionTable.setUpdatePerson(userName);
+        flag=permissionTableService.updatePermission(permissionTable);
+        return flag;
+    }
+   //删除权限
+    @RequestMapping(value="/del_permission",method=RequestMethod.POST)
+    public String del_permission(HttpSession session,PermissionTable permissionTable){
+        String userName = (String) session.getAttribute("userName");
+        String flag;
+        PermissionTable   permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+        if(permissionTable1.getY().equals("0")){
+            flag="0";
+            return flag;
+        }
+        permissionTable.setUpdatePerson(userName);
+        flag=permissionTableService.delPermission(permissionTable);
+        return flag;
+
+    }
+    //用户登入
+
+
+
+
+
+
+
+
+}
