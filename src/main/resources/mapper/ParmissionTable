@@ -3,19 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssm.dao.PermissionTableDao">
+<mapper namespace="com.example.test.mapper.PermissionTableMapper">
 
     <select id="selectPermissionByLimit"  resultType="PermissionTable">
         select * from permissionstable where 1=1 and deletedId =#{deletedId}
         limit ${currPage},${pageSize}
     </select>
-    <select id=" selectPermission"  resultType="PermissionTable">
-        select * from permissionstable where user_name =#{userName} and password=#{password}
+
+    <select id="selectPermission"  >
+        select * from permissionstable where user_name = #{userName} and password= #{password}
 
     </select>
-    <select id=" selectPermission"  resultType="PermissionTable">
-        select * from permissionstable where user_name =#{userName} and password=#{password}
 
-    </select>
 
 </mapper>

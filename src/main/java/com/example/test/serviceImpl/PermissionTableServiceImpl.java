@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.test.bean.PermissionTable;
-import com.example.test.mapper.PermissionTableDao;
+import com.example.test.mapper.PermissionTableMapper;
 
 import com.example.test.service.PermissionTableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableDao, PermissionTable> implements PermissionTableService {
+public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableMapper, PermissionTable> implements PermissionTableService {
     @Autowired
-    PermissionTableDao permissionTableDao;
+    PermissionTableMapper permissionTableDao;
 
 
    //查询权限
@@ -99,7 +99,7 @@ public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableDao, 
     @Override
     public PermissionTable selectFromUserNameAndPassWord(String userName, String passWord) {
 
-              PermissionTable  permissionTable =permissionTableDao.selectPermission(userName,passWord);
-        return permissionTable;
+        List<PermissionTable>  permissionTable =permissionTableDao.selectPermission(userName,passWord);
+        return permissionTable.get(0);
     }
 }

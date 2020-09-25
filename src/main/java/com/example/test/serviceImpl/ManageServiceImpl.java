@@ -1,8 +1,7 @@
 package com.example.test.serviceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.test.bean.Manages;
-import com.example.test.mapper.ManageServiceDao;
+import com.example.test.mapper.ManageServiceMapper;
 import com.example.test.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.List;
 public class ManageServiceImpl implements ManageService {
 
     @Autowired
-    ManageServiceDao manageServiceDaoA;
+    ManageServiceMapper manageServiceDaoA;
 
 
     @Override
