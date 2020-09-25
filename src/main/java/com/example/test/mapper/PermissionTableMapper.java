@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface PermissionTableDao extends BaseMapper<PermissionTable> {
+public interface PermissionTableMapper extends BaseMapper<PermissionTable> {
     List<PermissionTable> selectPermissionByLimit(@Param("deletedId")Integer deletedId,
                                                                  @Param("currPage") String currPage,
                                                                  @Param("pageSize") String pageSize);

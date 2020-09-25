@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface ManageServiceDao extends BaseMapper<Manages> {
+public interface ManageServiceMapper extends BaseMapper<Manages> {
 
 
     List<Manages> selectA();
