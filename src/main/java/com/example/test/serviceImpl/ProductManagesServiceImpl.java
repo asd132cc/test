@@ -620,5 +620,11 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
         return productManagesList;
     }
 
-
+    @Override
+    public void updateImgPath(ProductManages productManages) {
+        UpdateWrapper<ProductManages> updateWrapper=new UpdateWrapper<ProductManages>()
+                .set("imgpath",productManages.getImgpath())
+                .eq("id",productManages.getId());
+        productManagesDao.update(null,updateWrapper);
+    }
 }

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.genid.GenId;
 
 import javax.servlet.http.HttpSession;
+import java.security.Permission;
 import java.util.List;
 
 @Controller
@@ -21,14 +23,19 @@ public class ProductPermissionsController {
 PermissionTableService permissionTableService;
 
 
-
     //添加权限
     @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/insert_permission",method= RequestMethod.POST)
     public String insert_permission(HttpSession session, PermissionTable permissionTable){
        String userName = (String) session.getAttribute("userName");
        String flag;
+
           PermissionTable permissionTable1=permissionTableService.selectPermissionByUserName(userName);
+          if(permissionTable1!=null){
+              flag ="3";
+              return flag;
+          }
+
           if(permissionTable1.getY().equals("0")){
               flag="0";
               return flag;
@@ -38,7 +45,6 @@ PermissionTableService permissionTableService;
 
         return flag;
     }
-
     //查询权限
     @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/select_permissions",method= RequestMethod.GET)
@@ -91,4 +97,7 @@ PermissionTableService permissionTableService;
         return flag;
 
     }
+
+
+
 }

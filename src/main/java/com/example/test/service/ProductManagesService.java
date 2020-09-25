@@ -48,4 +48,7 @@ public  interface ProductManagesService {
 
     List<ProductManages> selectpermissionByLimitFromCategroyModelTypeNationLanguageFirst(String category, String model, String type, String nationLanguage, String sku,
                                                                                          String s, String s1);
+
+
+    void updateImgPath(ProductManages productManages);
 }

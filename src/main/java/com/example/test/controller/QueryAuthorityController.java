@@ -223,7 +223,18 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
         ouputStream.close();
 
     }
-
+    // 修改图片
+    @RequestMapping(value = "/update_img", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateImg(ProductManages productManages
+    ) {
+        try {
+           productManagesService.updateImgPath(productManages);
+            return "1";
+        } catch (Exception e) {
+            return "0";
+        }
+    }
 
 
 
