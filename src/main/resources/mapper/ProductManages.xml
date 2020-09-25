@@ -6,9 +6,14 @@
 <mapper namespace="com.example.test.mapper.ProductManagesDao">
 <select id="selectListByLimit" resultType="ProductManages" >
     select * from productmanages where 1=1
-    and deletedId=#{deletedId}
+    and deleted_id=#{deletedId}
     limit ${currPage},${pageSize}
 </select>
+    <select id="selectListByLimitByCount"  >
+        select count(*) from productmanages where 1=1
+        and deleted_id=#{deletedId}
+        limit ${currPage},${pageSize}
+    </select>
 
 <select id="selectpermissionCountFromCategroyModelTypeNationLanguage"     resultType="ProductManages">
     select count(*) from productmanages where 1=1
@@ -27,7 +32,7 @@
     <if test="sku!=null and sku!='undefined' and sku!='null'">
         and sku like concat('%',#{sku},'%')
     </if>
-        and deletedId=#{deletedId}
+        and deleted_id=#{deletedId}
 </select>
 
     <select id="selectListByLimitFromCategroyModelTypeNationLanguage"     resultType="ProductManages">
@@ -47,7 +52,7 @@
         <if test="sku!=null and sku!='undefined' and sku!='null'">
             and sku like concat('%',#{sku},'%')
         </if>
-            and deletedId=#{deletedId}
+            and deleted_id=#{deletedId}
         limit ${currPage},${pageSize}
     </select>
 
@@ -69,7 +74,7 @@
         <if test="sku!=null and sku!='undefined' and sku!='null'">
             and sku like concat('%',#{sku},'%')
         </if>
-        and deletedId=#{deletedId}
+        and deleted_id=#{deletedId}
         limit ${currPage},${pageSize}
     </select>
 
@@ -93,7 +98,7 @@
         <if test="sku!=null and sku!='undefined' and sku!='null'">
             and sku like concat('%',#{sku},'%')
         </if>
-        and deletedId=#{deletedId}
+        and deleted_id=#{deletedId}
     </select>
 
 </mapper>

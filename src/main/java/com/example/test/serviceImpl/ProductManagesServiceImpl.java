@@ -72,7 +72,7 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
     @Override
     public int selectpermissionCount() {
         QueryWrapper<ProductManages> queryWrapper = new QueryWrapper<ProductManages>()
-                .eq("deletedId",0);
+                .eq("deleted_id",0);
         int count = productManagesDao.selectCount(queryWrapper);
         return count;
     }
@@ -298,7 +298,7 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
     @Override
     public String deletedProduct(PermissionTable permissionTable1, ProductManages productManages) {
         UpdateWrapper<ProductManages> updateWrapper=new UpdateWrapper<ProductManages>()
-                .set("deletedId",1)
+                .set("deleted_id",1)
                 .eq("id",productManages.getId());
         try{
             productManagesDao.update(null,updateWrapper);

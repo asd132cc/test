@@ -12,6 +12,11 @@ public interface ProductManagesDao extends BaseMapper<ProductManages> {
     //查询所有的商品信息
     List<ProductManages> selectListByLimit(@Param("deletedId")  Integer deletedId, @Param(
             "currPage")String s, @Param("pageSize") String s1);
+
+    List<ProductManages> selectListByLimitByCount(@Param("deletedId")  Integer deletedId, @Param(
+            "currPage")String s, @Param("pageSize") String s1);
+
+
     //按照条件调试分页
     int selectpermissionCountFromCategroyModelTypeNationLanguage(      @Param("deletedId")  Integer deletedId,
                                                                        @Param("category") String category,
