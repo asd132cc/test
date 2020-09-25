@@ -10,8 +10,7 @@ import com.example.test.bean.ProductManages;
 import com.example.test.mapper.ProductManagesDao;
 
 
-import com.example.test.service.
-        ProductManagesService;
+import com.example.test.service.ProductManagesService;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -595,6 +594,30 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
         }
         return wb;
 
+    }
+
+    @Override
+    public List<ProductManages> selectpermissionByLimitFromCategroyModelTypeNationLanguageFirst(String category,
+                                                                                                String model,
+                                                                                                String type,
+                                                                                                String nationLanguage
+                                                                                              , String sku, String s,
+                                                                                                String s1) {
+        List<ProductManages> productManagesList = productManagesDao.selectListByLimitTwo(0,s, s1,category,model,type,
+                nationLanguage,sku);
+        for (int i = 0; i < productManagesList.size(); i++) {
+            productManagesList.get(i).setdRetailPrice("");
+            productManagesList.get(i).setdCoreWholesalePrice("");
+            productManagesList.get(i).setdOrdinaryDealersWholesale("");
+            productManagesList.get(i).setdSpecialTreatmentWholesale("");
+            productManagesList.get(i).setdStandbyWholesalePrice("");
+            productManagesList.get(i).setoRetailPrice("");
+            productManagesList.get(i).setoSTWholesale("");
+            productManagesList.get(i).setoGeneralWholesalePrice("");
+            productManagesList.get(i).setoCWPrice("");
+            productManagesList.get(i).setoReserveWholesale("");
+        }
+        return productManagesList;
     }
 
 

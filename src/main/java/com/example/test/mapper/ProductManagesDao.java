@@ -35,7 +35,16 @@ public interface ProductManagesDao extends BaseMapper<ProductManages> {
                                                                                               @Param("category") String category,
                                                                                               @Param("model")    String model,
                                                                                               @Param("type")         String type,
-                                                                                              @Param("nationLanuage")String nationLanguage,
+                                                                                              @Param("nationLanuage") String nationLanguage,
                                                                                               @Param("sku") String sku);
+
+    List<ProductManages> selectListByLimitTwo(@Param("deletedId")   Integer i,
+                                              @Param("currPage")  String s,
+                                              @Param("pageSize")  String s1,
+                                              @Param("category")  String category,
+                                              @Param("model") String model,
+                                              @Param("type") String type,
+                                              @Param("nationLanuage") String nationLanguage,
+                                              @Param("sku") String sku);
 }
 

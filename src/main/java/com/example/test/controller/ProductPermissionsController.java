@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 
+import com.example.test.annotation.LoginAuthorization;
 import com.example.test.bean.PermissionTable;
 import com.example.test.service.PermissionTableService;
 import com.ssm.controller.vo.LayuiReturn;
@@ -22,6 +23,7 @@ PermissionTableService permissionTableService;
 
 
     //添加权限
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/insert_permission",method= RequestMethod.POST)
     public String insert_permission(HttpSession session, PermissionTable permissionTable){
        String userName = (String) session.getAttribute("userName");
@@ -38,6 +40,7 @@ PermissionTableService permissionTableService;
     }
 
     //查询权限
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/select_permissions",method= RequestMethod.GET)
     @ResponseBody
     public LayuiReturn<PermissionTable> select_permissions(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
@@ -58,6 +61,7 @@ PermissionTableService permissionTableService;
 
 
     //修改权限
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_permission",method=RequestMethod.POST)
     public String update_permission(HttpSession session,PermissionTable permissionTable){
         String userName = (String) session.getAttribute("userName");
@@ -72,6 +76,7 @@ PermissionTableService permissionTableService;
         return flag;
     }
    //删除权限
+   @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/del_permission",method=RequestMethod.POST)
     public String del_permission(HttpSession session,PermissionTable permissionTable){
         String userName = (String) session.getAttribute("userName");
@@ -86,17 +91,4 @@ PermissionTableService permissionTableService;
         return flag;
 
     }
-    //用户登入
-
-
-
-
-
-
-
-
-
-
-
-
 }

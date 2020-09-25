@@ -45,4 +45,7 @@ public  interface ProductManagesService {
 
 
     SXSSFWorkbook put_excel(PermissionTable permissionTable1, String category, String model, String type, String nationLanguage, String sku) throws IOException;
+
+    List<ProductManages> selectpermissionByLimitFromCategroyModelTypeNationLanguageFirst(String category, String model, String type, String nationLanguage, String sku,
+                                                                                         String s, String s1);
 }

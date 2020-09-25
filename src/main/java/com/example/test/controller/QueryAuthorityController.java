@@ -1,5 +1,6 @@
 package com.example.test.controller;
 
+import com.example.test.annotation.LoginAuthorization;
 import com.example.test.bean.PermissionTable;
 import com.example.test.bean.ProductManages;
 import com.example.test.service.PermissionTableService;
@@ -31,6 +32,7 @@ public class QueryAuthorityController {
 
 
 //登入后
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping("/select_AllFrom_permission")
     @ResponseBody
     public LayuiReturn<ProductManages> select_AllFrom_permission(HttpSession session, @RequestParam(value = "page", required = false) Integer currPage,
@@ -58,6 +60,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
 
     //修改基础信息
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionA",method = RequestMethod.POST)
     public String update_AllFrom_permissionA(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -68,6 +71,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
     }
     //修改条形码
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionB",method = RequestMethod.POST)
     public String update_AllFrom_permissionB(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -78,6 +82,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
     }
     //修改新品发布会
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionC",method = RequestMethod.POST)
     public String update_AllFrom_permissionC(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -88,6 +93,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
     }
     //修改产销状态
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionD",method = RequestMethod.POST)
     public String update_AllFrom_permissionD(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -98,6 +104,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
     }
     //修改报价
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionE",method = RequestMethod.POST)
     public String update_AllFrom_permissionE(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -109,6 +116,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
     }
 
     //修改产品包装信息
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value="/update_AllFrom_permissionF",method = RequestMethod.POST)
     public String update_AllFrom_permissionF(HttpSession session,ProductManages productManages){
         String userName= (String) session.getAttribute("userName");
@@ -119,6 +127,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
     }
   //新增商品
+  @LoginAuthorization(value = LoginAuthorization.backgoundusername)
   @RequestMapping(value="/insert_product",method = RequestMethod.POST)
   public String insert_product(HttpSession session,ProductManages productManages){
       String userName= (String) session.getAttribute("userName");
@@ -132,6 +141,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
   }
  //通过品类，型号，主题，国家语言查询(模糊查询，分页)
+ @LoginAuthorization(value = LoginAuthorization.backgoundusername)
  @RequestMapping("/select_AllByCategoryModelTypeNationLanguage")
  @ResponseBody
  public LayuiReturn<ProductManages> select_AllByCategoryModelTypeNationLanguage(HttpSession session,
@@ -153,7 +163,31 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
      return  LayuiReturn.convert(count,productManagesList);
 
  }
+
+
+
+    //通过品类，型号，主题，国家语言查询(模糊查询，分页)
+    @RequestMapping("/select_AllByCategoryModelTypeNationLanguageFirst")
+    @ResponseBody
+    public LayuiReturn<ProductManages> select_AllByCategoryModelTypeNationLanguageFirst(
+                                                                                   @RequestParam("category") String category,
+                                                                                   @RequestParam("model") String model,
+                                                                                   @RequestParam("type") String type,
+                                                                                   @RequestParam("NationLanguage") String NationLanguage,
+                                                                                   @RequestParam("sku") String sku,
+                                                                                   @RequestParam(value = "page", required = false) Integer currPage,
+                                                                                   @RequestParam(value = "limit", required = false) Integer pageSize){
+        List<ProductManages> productManagesList=
+                productManagesService.selectpermissionByLimitFromCategroyModelTypeNationLanguageFirst(category,
+                        model,type,NationLanguage,sku, pageSize*(currPage-1)+"",pageSize+"");
+        int count=productManagesService.selectpermissionCountFromCategroyModelTypeNationLanguage(category,
+                model,type,NationLanguage,sku);
+        return  LayuiReturn.convert(count,productManagesList);
+
+    }
+
    //删除商品信息
+   @LoginAuthorization(value = LoginAuthorization.backgoundusername)
    @RequestMapping(value="/del_product",method = RequestMethod.POST)
    public String del_product(HttpSession session,ProductManages productManages){
        String userName= (String) session.getAttribute("userName");
@@ -167,6 +201,7 @@ public LayuiReturn<ProductManages> select_AllFirst(HttpSession session, @Request
 
    }
    //导出excel
+   @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping("/put_excel")
     public void put_excel(HttpServletResponse response,
                           HttpSession session,

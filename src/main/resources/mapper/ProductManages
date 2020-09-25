@@ -52,6 +52,27 @@
     </select>
 
 
+    <select id="selectListByLimitTwo"     resultType="ProductManages">
+        select * from commodity_information_sheet where 1=1
+        <if test="category!=null and category!='undefined' and category!='null'">
+            and category like concat('%',#{category},'%')
+        </if>
+        <if test="model!=null and model!='undefined' and model!='null'">
+            and model like concat('%',#{model},'%')
+        </if>
+        <if test="type!=null and type!='undefined' and type!='null'">
+            and type like concat('%',#{type},'%')
+        </if>
+        <if test="nationLanuage!=null and nationLanuage!='undefined' and nationLanuage!='null'">
+            and nationLanuage like concat('%',#{nationLanuage},'%')
+        </if>
+        <if test="sku!=null and sku!='undefined' and sku!='null'">
+            and sku like concat('%',#{sku},'%')
+        </if>
+        and deletedId=#{deletedId}
+        limit ${currPage},${pageSize}
+    </select>
+
 
 
 
