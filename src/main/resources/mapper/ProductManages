@@ -5,13 +5,13 @@
 
 <mapper namespace="com.ssm.dao.ProductManagesDao">
 <select id="selectListByLimit" resultType="ProductManages" >
-    select * from commodity_information_sheet where 1=1
+    select * from productmanages where 1=1
     and deletedId=#{deletedId}
     limit ${currPage},${pageSize}
 </select>
 
 <select id="selectpermissionCountFromCategroyModelTypeNationLanguage"     resultType="ProductManages">
-    select count(*) from commodity_information_sheet where 1=1
+    select count(*) from productmanages where 1=1
     <if test="category!=null and category!='undefined' and category!='null'">
         and category like concat('%',#{category},'%')
     </if>
@@ -31,7 +31,7 @@
 </select>
 
     <select id="selectListByLimitFromCategroyModelTypeNationLanguage"     resultType="ProductManages">
-        select * from commodity_information_sheet where 1=1
+        select * from productmanages where 1=1
         <if test="category!=null and category!='undefined' and category!='null'">
             and category like concat('%',#{category},'%')
         </if>
@@ -53,7 +53,7 @@
 
 
     <select id="selectListByLimitTwo"     resultType="ProductManages">
-        select * from commodity_information_sheet where 1=1
+        select * from productmanages where 1=1
         <if test="category!=null and category!='undefined' and category!='null'">
             and category like concat('%',#{category},'%')
         </if>
@@ -77,7 +77,7 @@
 
 
     <select id="selectListByLimitFromCategroyModelTypeNationLanguage2"     resultType="ProductManages">
-        select * from commodity_information_sheet where 1=1
+        select * from productmanages where 1=1
         <if test="category!=null and category!='undefined' and category!='null'">
             and category like concat('%',#{category},'%')
         </if>

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class OtherController {
+public class ManageController {
 
     @Autowired
     ManageService manageService;
@@ -32,7 +32,7 @@ public class OtherController {
     PermissionTableService permissionTableService;
 
     @LoginAuthorization(value = LoginAuthorization.backgoundusername)
-    @RequestMapping(value = "/uploadimg1", produces = {"text/html;charset=UTF-8;"})
+    @RequestMapping(value = "/uploadimg1")
     @ResponseBody
     public String uploadimg1(@Param("path")String path, @RequestParam("file") CommonsMultipartFile file,
                              HttpServletRequest request) throws IOException {
@@ -85,7 +85,7 @@ public class OtherController {
     //展示解疑图片
     @RequestMapping("/select_solving_doubts")
     public String selectSolvingDoubts(){
-       List<Manages> manageServiceList= manageService.selectAll();
+       List<Manages> manageServiceList= manageService.selectcc();
         String imgpath=manageServiceList.get(0).getSolvingDoubts();
         return imgpath;
     }
@@ -103,7 +103,7 @@ public class OtherController {
     //查看留言版
     @RequestMapping("/select_blank")
     public String select_blank(){
-        List<Manages> manageServiceList= manageService.selectAll();
+        List<Manages> manageServiceList= manageService.selectcc();
         String blank=manageServiceList.get(0).getBlank();
         return blank;
     }

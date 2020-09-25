@@ -14,4 +14,6 @@ public interface PermissionTableDao extends BaseMapper<PermissionTable> {
     List<PermissionTable> selectPermissionByLimit(@Param("deletedId")Integer deletedId,
                                                                  @Param("currPage") String currPage,
                                                                  @Param("pageSize") String pageSize);
+
+    PermissionTable selectPermission(@Param("userName")String userName,@Param("password")String passWord);
 }

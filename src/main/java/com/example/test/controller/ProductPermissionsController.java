@@ -96,11 +96,14 @@ PermissionTableService permissionTableService;
 
     }
 //登入
-    @RequestMapping("/loghinINc")
-    public String loginINc(@RequestParam("userName") String userName,@RequestParam("password")String passWord){
+    @RequestMapping(value="/loginIn",method = RequestMethod.POST)
+    public String loginINc( String userName,
+                          String passWord,HttpSession session){
+          session.removeAttribute("userName");
           PermissionTable permissionTable=permissionTableService.selectFromUserNameAndPassWord(userName,passWord);
          if(permissionTable!=null){
-             return "login";
+             session.setAttribute("userName",userName);
+             return "success";
          }else{
              return "0";
          }
