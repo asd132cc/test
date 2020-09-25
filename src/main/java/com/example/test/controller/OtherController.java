@@ -1,22 +1,26 @@
 package com.example.test.controller;
+import com.example.test.annotation.LoginAuthorization;
 import com.example.test.bean.Manages;
+import com.example.test.bean.PermissionTable;
 import com.example.test.service.ManageService;
+import com.example.test.service.PermissionTableService;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,7 +28,10 @@ public class OtherController {
 
     @Autowired
     ManageService manageService;
+    @Autowired
+    PermissionTableService permissionTableService;
 
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping(value = "/uploadimg1", produces = {"text/html;charset=UTF-8;"})
     @ResponseBody
     public String uploadimg1(@Param("path")String path, @RequestParam("file") CommonsMultipartFile file,
@@ -59,16 +66,50 @@ public class OtherController {
     }
 
     //上传解疑图片
+    @LoginAuthorization(value = LoginAuthorization.backgoundusername)
     @RequestMapping("/update_solving_doubts")
-    public String update_solving_doubts(Manages manages){
+    public String update_solving_doubts(Manages manages, HttpSession session) {
+          String userName= (String) session.getAttribute("userName");
+        PermissionTable permissionTable =permissionTableService.selectPermissionByUserName(userName);
+        if(permissionTable.getV().equals("0")){
+            return "0";
+        }
         try {
             manageService.updateImgPath(manages);
             return "1";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "0";
         }
-        catch(Exception e){
-               e.printStackTrace();
-               return "0";
-            }
     }
+    //展示解疑图片
+    @RequestMapping("/select_solving_doubts")
+    public String selectSolvingDoubts(){
+       List<Manages> manageServiceList= manageService.selectAll();
+        String imgpath=manageServiceList.get(0).getSolvingDoubts();
+        return imgpath;
+    }
+    //设置留言版
+    @RequestMapping("/update_blank")
+    public String updateblank(Manages manages){
+        try {
+            manageService.updateBlank(manages);
+            return "1";
+        }catch (Exception e) {
+            e.printStackTrace();
+            return "0";
+        }
+    }
+    //查看留言版
+    @RequestMapping("/select_blank")
+    public String select_blank(){
+        List<Manages> manageServiceList= manageService.selectAll();
+        String blank=manageServiceList.get(0).getBlank();
+        return blank;
+    }
+
+
+
+
 
 }

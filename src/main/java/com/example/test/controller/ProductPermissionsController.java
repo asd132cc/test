@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tk.mybatis.mapper.genid.GenId;
 
 import javax.servlet.http.HttpSession;
-import java.security.Permission;
 import java.util.List;
 
 @Controller
@@ -97,7 +95,16 @@ PermissionTableService permissionTableService;
         return flag;
 
     }
-
+//登入
+    @RequestMapping("/loghinINc")
+    public String loginINc(@RequestParam("userName") String userName,@RequestParam("password")String passWord){
+          PermissionTable permissionTable=permissionTableService.selectFromUserNameAndPassWord(userName,passWord);
+         if(permissionTable!=null){
+             return "login";
+         }else{
+             return "0";
+         }
+    }
 
 
 }

@@ -95,4 +95,16 @@ public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableDao, 
         }
         return flag;
     }
+
+    @Override
+    public PermissionTable selectFromUserNameAndPassWord(String userName, String passWord) {
+        QueryWrapper<PermissionTable> queryWrapper=new QueryWrapper<PermissionTable>()
+                .eq("user_name",userName)
+                .eq("password",passWord);
+
+              PermissionTable  permissionTable =permissionTableDao.selectOne(queryWrapper);
+
+
+        return permissionTable;
+    }
 }

@@ -18,4 +18,6 @@ public interface PermissionTableService {
     String updatePermission(PermissionTable permissionTable);
     //删除权限
     String delPermission(PermissionTable permissionTable);
+    //用户密码是否正确
+    PermissionTable selectFromUserNameAndPassWord(String userName, String passWord);
 }
