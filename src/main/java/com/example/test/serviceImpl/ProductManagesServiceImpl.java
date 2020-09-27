@@ -1,15 +1,14 @@
 
 
 package com.example.test.serviceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.example.test.bean.PermissionTable;
 import com.example.test.bean.ProductManages;
-import com.example.test.mapper.ProductManagesDao;
 
 
+import com.example.test.mapper.ProductManagesMapper;
 import com.example.test.service.ProductManagesService;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -23,15 +22,16 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, ProductManages> implements ProductManagesService {
-    @Autowired
-    ProductManagesDao productManagesDao;
+public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesMapper, ProductManages> implements ProductManagesService {
+    @Resource
+    ProductManagesMapper productManagesDao;
 
     //商品信息查询
     @Override
@@ -71,9 +71,7 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
 
     @Override
     public int selectpermissionCount() {
-        QueryWrapper<ProductManages> queryWrapper = new QueryWrapper<ProductManages>()
-                .eq("deleted_id",0);
-        int count = productManagesDao.selectCount(queryWrapper);
+        int count = productManagesDao.selectListByLimitByCount(0);
         return count;
     }
 
@@ -99,7 +97,7 @@ public class ProductManagesServiceImpl extends ServiceImpl<ProductManagesDao, Pr
                     .set("update_person", permissionTable1.getUserName())
                     .set("update_time", s)
                     .eq("id", productManages.getId());
-            productManagesDao.update(null,updateWrapper);
+         productManagesDao.update(null, updateWrapper);
             return "1";
         }
     }

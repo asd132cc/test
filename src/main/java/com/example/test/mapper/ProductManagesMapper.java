@@ -1,19 +1,20 @@
 package com.example.test.mapper;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.example.test.bean.ProductManages;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 
 
 import java.util.List;
 
-public interface ProductManagesDao extends BaseMapper<ProductManages> {
+public interface ProductManagesMapper extends BaseMapper<ProductManages> {
     //查询所有的商品信息
     List<ProductManages> selectListByLimit(@Param("deletedId")  Integer deletedId, @Param(
-            "currPage")String s, @Param("pageSize") String s1);
-
-    List<ProductManages> selectListByLimitByCount(@Param("deletedId")  Integer deletedId, @Param(
             "currPage")String s, @Param("pageSize") String s1);
 
 
@@ -51,5 +52,9 @@ public interface ProductManagesDao extends BaseMapper<ProductManages> {
                                               @Param("type") String type,
                                               @Param("nationLanuage") String nationLanguage,
                                               @Param("sku") String sku);
+
+    Integer selectListByLimitByCount(Integer i);
+
+
 }
 

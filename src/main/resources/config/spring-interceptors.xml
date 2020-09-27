@@ -13,10 +13,6 @@
             <mvc:mapping path="/**"/>
             <bean class="com.ssm.handler.LoginInterceptor"/>
         </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.ssm.handler.RequestMappingInterceptor"/>
-        </mvc:interceptor>
     </mvc:interceptors>
 
 </beans>

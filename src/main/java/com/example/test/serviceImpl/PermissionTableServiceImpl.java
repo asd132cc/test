@@ -1,22 +1,26 @@
 
 package com.example.test.serviceImpl;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.example.test.bean.PermissionTable;
 import com.example.test.mapper.PermissionTableMapper;
 
 import com.example.test.service.PermissionTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableMapper, PermissionTable> implements PermissionTableService {
-    @Autowired
+    @Resource
     PermissionTableMapper permissionTableDao;
 
 
@@ -88,7 +92,7 @@ public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableMappe
                 .set("deletedId",1)
                 .eq("id",permissionTable.getId());
         try {
-            permissionTableDao.update(null,updateWrapper);
+          permissionTableDao.update(null,updateWrapper);
             flag="1";
         }catch (Exception e){
             e.printStackTrace();
@@ -99,7 +103,7 @@ public class PermissionTableServiceImpl extends ServiceImpl<PermissionTableMappe
     @Override
     public PermissionTable selectFromUserNameAndPassWord(String userName, String passWord) {
 
-        List<PermissionTable>  permissionTable =permissionTableDao.selectPermission(userName,passWord);
+        List<PermissionTable>  permissionTable =permissionTableDao.selectPermission(userName,passWord,0);
         return permissionTable.get(0);
     }
 }

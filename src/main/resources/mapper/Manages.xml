@@ -9,7 +9,7 @@
         select * from manages where 1=1
     </select>
     <update id="updateA" parameterType="Manages" >
-        update manages set solving_doubts=#{Manages.solving_doubts} where id=#{Manages.id}
+        update manages set solvingDoubts=#{Manages.solvingDoubts} where id=#{Manages.id}
     </update>
 
 
