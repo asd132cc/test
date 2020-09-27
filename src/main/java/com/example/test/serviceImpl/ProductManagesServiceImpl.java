@@ -3,7 +3,7 @@
 package com.example.test.serviceImpl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.test.bean.PermissionTable;
 import com.example.test.bean.ProductManages;
 

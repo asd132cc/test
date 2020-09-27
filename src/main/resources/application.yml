@@ -1,9 +1,6 @@
 server:
       port:8080
 
-
-
-
 spring:
   datasource:
     name: test
@@ -18,10 +15,11 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.test.bean
-
   mapper:
     mappers: com.pinyu.miniprogram.mysql.mappers.BaseMapper
     identity: mysql
+
+
 #  configuration:
 #    map-underscore-to-camel-case=true
 
