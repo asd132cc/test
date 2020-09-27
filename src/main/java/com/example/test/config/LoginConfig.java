@@ -1,3 +1,5 @@
+package com.example.test.config;
+
 import com.example.test.handler.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;

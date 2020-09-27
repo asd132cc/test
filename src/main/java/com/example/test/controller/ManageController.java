@@ -48,7 +48,7 @@ public class ManageController {
             File newFile1 = new File(path1);
             // 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
             file.transferTo(newFile1);
-
+ 
             Map<String, Object> map = new HashMap<String, Object>();
             Map<String, Object> map2 = new HashMap<String, Object>();
             map.put("code", 0);//0表示成功，1失败
@@ -91,7 +91,12 @@ public class ManageController {
     }
     //设置留言版
     @RequestMapping("/update_blank")
-    public String updateblank(Manages manages){
+    public String updateblank(HttpSession session,Manages manages){
+        String userName= (String) session.getAttribute("userName");
+        PermissionTable permissionTable =permissionTableService.selectPermissionByUserName(userName);
+        if(permissionTable.getK().equals("0")){
+            return "0";
+        }
         try {
             manageService.updateBlank(manages);
             return "1";
@@ -102,6 +107,7 @@ public class ManageController {
     }
     //查看留言版
     @RequestMapping("/select_blank")
+    @ResponseBody
     public String select_blank(){
         List<Manages> manageServiceList= manageService.selectcc();
         String blank=manageServiceList.get(0).getBlank();
